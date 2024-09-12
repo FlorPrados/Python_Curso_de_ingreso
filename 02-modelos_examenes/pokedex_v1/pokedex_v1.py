@@ -26,7 +26,7 @@ import customtkinter
 #? El profesor OAK de pueblo paleta quiere que construyas un primer modelo prototipico 
 #? de pokedex con 10 pokemones de prueba.
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Florencia Prados' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Pokedex" para poder cargar 10 pokemones.
@@ -104,16 +104,61 @@ class App(customtkinter.CTk):
 
 
     def btn_cargar_pokedex_on_click(self):
-        pass
-        
+        for i in range(2):
+            nombre = None
+            while not nombre:
+                nombre = input("Ingrese el nomre del pokemon: ")
+
+            tipo = None
+            lista_tipos_validos = ["Agua", "Tierra", "Psiquico", "Fuego", "Electrico"]
+            while tipo not in lista_tipos_validos:
+                tipo = input(f"Ingrese un tipo valido para {nombre}: ")
+
+            poder = None
+            while not poder or not poder.isdigit() or int(poder) > 200 or int(poder) < 50:
+                poder = input(f"Ingrese un poder numerico para {nombre} entre 50 y 200: ")
+            
+            poder_int = int(poder)
+
+            self.lista_nombre_pokemones.append(nombre)
+            self.lista_tipo_pokemones.append(tipo)
+            self.lista_poder_pokemones.append(poder_int)
+
+            print(self.lista_nombre_pokemones[-1])
+            print(self.lista_tipo_pokemones[-1])
+            print(self.lista_poder_pokemones[-1])
+
+
 
     def btn_mostrar_informe_1_on_click(self):
-        pass
+        for i in range(len(self.lista_nombre_pokemones)):
+            mensaje = f'{i} | {self.lista_nombre_pokemones[i]} | {self.lista_tipo_pokemones[i]} | {self.lista_poder_pokemones[i]}'
+            print(mensaje)
 
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        #! 1) - Cantidad de pokemones de tipo Electrico
+        cantidad_electrico = 0
+        suma_poderes = 0
+        cantidad_pokemones = len(self.lista_nombre_pokemones)
 
+        for tipo in self.lista_tipo_pokemones:
+            if tipo == "Electrico":
+                cantidad_electrico += 1
+        
+        ## OTRA FORMA : MAS EFECTIVA ESTAAAA, hacer asi
+        for indice in range(len(self.lista_tipo_pokemones)):
+            if self.lista_tipo_pokemones[indice] == "Electrico":
+                cantidad_electrico += 1
+            
+            suma_poderes += self.lista_poder_pokemones[indice]
+
+        promedio_poder = suma_poderes / cantidad_pokemones
+
+        print(f"Hay {cantidad_electrico} de pokemones electricos")
+        print(f"El promedio de poder de los pokemones es: " , promedio_poder)
+
+        
     
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
